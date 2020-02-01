@@ -1,63 +1,82 @@
-import fs from "fs";
-import path from "path";
-import test from "ava";
-import rimraf from "rimraf";
-import { imgDiff } from "../";
+import fs from 'fs';
+import path from 'path';
+import test from 'ava';
+import rimraf from 'rimraf';
+import { imgDiff } from '../';
 
-test("compare with 2 png files", async t => {
-  const diffFilename = path.resolve(__dirname, "images/diff_generated.png");
+test('compare with 2 png files', async t => {
+  const diffFilename = path.resolve(__dirname, 'images/diff_generated.png');
   rimraf.sync(diffFilename);
   await imgDiff({
-    actualFilename: path.resolve(__dirname, "images/actual.png"),
-    expectedFilename: path.resolve(__dirname, "images/expected.png"),
+    actualFilename: path.resolve(__dirname, 'images/actual.png'),
+    expectedFilename: path.resolve(__dirname, 'images/expected.png'),
   });
-  t.throws(() => fs.statSync(path.resolve(__dirname, "images/diff_generated.png")));
+  t.throws(() => fs.statSync(path.resolve(__dirname, 'images/diff_generated.png')));
   const { imagesAreSame } = await imgDiff({
     diffFilename,
-    actualFilename: path.resolve(__dirname, "images/actual.png"),
-    expectedFilename: path.resolve(__dirname, "images/expected.png"),
+    actualFilename: path.resolve(__dirname, 'images/actual.png'),
+    expectedFilename: path.resolve(__dirname, 'images/expected.png'),
   });
   t.is(imagesAreSame, false);
-  t.truthy(fs.statSync(path.resolve(__dirname, "images/diff_generated.png")));
+  t.truthy(fs.statSync(path.resolve(__dirname, 'images/diff_generated.png')));
 });
 
-test("compare with 2 same files", async t => {
+test('compare with 2 same files', async t => {
   const { imagesAreSame } = await imgDiff({
-    actualFilename: path.resolve(__dirname, "images/expected.png"),
-    expectedFilename: path.resolve(__dirname, "images/expected.png"),
+    actualFilename: path.resolve(__dirname, 'images/expected.png'),
+    expectedFilename: path.resolve(__dirname, 'images/expected.png'),
   });
   t.is(imagesAreSame, true);
 });
 
-test("compare with 2 files whose dimension are different", async t => {
-  const diffFilename = path.resolve(__dirname, "images/diff_generated.wide.png");
+test('compare with 2 files whose dimension are different', async t => {
+  const diffFilename = path.resolve(__dirname, 'images/diff_generated.wide.png');
   rimraf.sync(diffFilename);
   const { width, height } = await imgDiff({
     diffFilename,
-    actualFilename: path.resolve(__dirname, "images/actual_wide.png"),
-    expectedFilename: path.resolve(__dirname, "images/expected.png"),
+    actualFilename: path.resolve(__dirname, 'images/actual_wide.png'),
+    expectedFilename: path.resolve(__dirname, 'images/expected.png'),
   });
-  t.truthy(fs.statSync(path.resolve(__dirname, "images/diff_generated.wide.png")));
+  t.truthy(fs.statSync(path.resolve(__dirname, 'images/diff_generated.wide.png')));
 });
 
-test("compare with 2 jpeg files", async t => {
-  const diffFilename = path.resolve(__dirname, "images/diff_generated.tiff.png");
+test('compare with 2 jpeg files', async t => {
+  const diffFilename = path.resolve(__dirname, 'images/diff_generated.jpg.png');
   rimraf.sync(diffFilename);
   const { width, height } = await imgDiff({
     diffFilename,
-    actualFilename: path.resolve(__dirname, "images/actual.tiff"),
-    expectedFilename: path.resolve(__dirname, "images/expected.tiff"),
+    actualFilename: path.resolve(__dirname, 'images/actual.jpg'),
+    expectedFilename: path.resolve(__dirname, 'images/expected.jpg'),
   });
-  t.truthy(fs.statSync(path.resolve(__dirname, "images/diff_generated.tiff.png")));
+  t.truthy(fs.statSync(path.resolve(__dirname, 'images/diff_generated.jpg.png')));
 });
 
-test("compare with 2 jpeg files", async t => {
-  const diffFilename = path.resolve(__dirname, "images/diff_generated.jpg.png");
-  rimraf.sync(diffFilename);
-  const { width, height } = await imgDiff({
-    diffFilename,
-    actualFilename: path.resolve(__dirname, "images/actual.jpg"),
-    expectedFilename: path.resolve(__dirname, "images/expected.jpg"),
+test('compare jpeg with explicit read stream', async t => {
+  const { imagesAreSame } = await imgDiff({
+    actualReadStream: fs.createReadStream(path.resolve(__dirname, 'images/expected.jpg')),
+    actualType: 'jpg',
+    expectedReadStream: fs.createReadStream(path.resolve(__dirname, 'images/expected.jpg')),
+    expectedType: 'jpeg'
   });
-  t.truthy(fs.statSync(path.resolve(__dirname, "images/diff_generated.jpg.png")));
+  t.is(imagesAreSame, true);
+});
+
+test('compare png with explicit read stream', async t => {
+  const { imagesAreSame } = await imgDiff({
+    actualReadStream: fs.createReadStream(path.resolve(__dirname, 'images/expected.png')),
+    actualType: 'png',
+    expectedReadStream: fs.createReadStream(path.resolve(__dirname, 'images/expected.png')),
+    expectedType: 'png'
+  });
+  t.is(imagesAreSame, true);
+});
+
+test('compare png+jpg with explicit read stream', async t => {
+  const { imagesAreSame } = await imgDiff({
+    actualReadStream: fs.createReadStream(path.resolve(__dirname, 'images/expected.png')),
+    actualType: 'png',
+    expectedReadStream: fs.createReadStream(path.resolve(__dirname, 'images/expected.jpg')),
+    expectedType: 'jpeg'
+  });
+  t.is(imagesAreSame, true);
 });
