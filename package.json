@@ -1,5 +1,5 @@
 {
-  "name": "img-diff-js",
+  "name": "@cloudraker/img-diff-js",
   "version": "0.4.1",
   "description": "Library to compare 2 images",
   "main": "lib/index.js",
@@ -10,19 +10,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reg-viz/img-diff-js.git"
+    "url": "git+https://github.com/cloudraker/img-diff-js.git"
   },
   "keywords": [
     "diff",
     "image",
     "compare"
   ],
-  "author": "Quramy",
+  "authors": ["Quramy", "CloudRaker Devs"],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/reg-viz/img-diff-js/issues"
+    "url": "https://github.com/cloudraker/img-diff-js/issues"
   },
-  "homepage": "https://github.com/reg-viz/img-diff-js#readme",
+  "homepage": "https://github.com/cloudraker/img-diff-js#readme",
   "dependencies": {
     "decode-tiff": "^0.2.1",
     "jpeg-js": "^0.3.6",
