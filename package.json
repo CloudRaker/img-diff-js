@@ -3,6 +3,7 @@
   "version": "0.4.1",
   "description": "Library to compare 2 images",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "ava",
     "perf": "node tool/perf.js"
@@ -30,6 +31,7 @@
     "pngjs": "^3.2.0"
   },
   "devDependencies": {
+    "@types/node": "*",
     "ava": "^0.24.0",
     "image-diff": "latest",
     "image-difference": "latest",
