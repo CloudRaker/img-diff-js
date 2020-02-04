@@ -80,3 +80,34 @@ test('compare png+jpg with explicit read stream', async t => {
   });
   t.is(imagesAreSame, true);
 });
+
+
+test('compare jpeg with explicit buffer', async t => {
+  const { imagesAreSame } = await imgDiff({
+    actualData: fs.readFileSync(path.resolve(__dirname, 'images/expected.jpg')),
+    actualType: 'jpg',
+    expectedData: fs.readFileSync(path.resolve(__dirname, 'images/expected.jpg')),
+    expectedType: 'jpeg'
+  });
+  t.is(imagesAreSame, true);
+});
+
+test('compare png with explicit buffer', async t => {
+  const { imagesAreSame } = await imgDiff({
+    actualData: fs.readFileSync(path.resolve(__dirname, 'images/expected.png')),
+    actualType: 'png',
+    expectedData: fs.readFileSync(path.resolve(__dirname, 'images/expected.png')),
+    expectedType: 'png'
+  });
+  t.is(imagesAreSame, true);
+});
+
+test('compare png+jpg with explicit buffer', async t => {
+  const { imagesAreSame } = await imgDiff({
+    actualData: fs.readFileSync(path.resolve(__dirname, 'images/expected.png')),
+    actualType: 'png',
+    expectedData: fs.readFileSync(path.resolve(__dirname, 'images/expected.jpg')),
+    expectedType: 'jpeg'
+  });
+  t.is(imagesAreSame, true);
+});
