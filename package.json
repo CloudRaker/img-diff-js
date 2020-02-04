@@ -1,9 +1,12 @@
 {
   "name": "@cloudraker/img-diff-js",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Library to compare 2 images",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "files": [
+    "lib/*"
+  ],
   "scripts": {
     "test": "ava",
     "perf": "node tool/perf.js"
@@ -17,7 +20,10 @@
     "image",
     "compare"
   ],
-  "authors": ["Quramy", "CloudRaker Devs"],
+  "authors": [
+    "Quramy",
+    "CloudRaker Devs"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cloudraker/img-diff-js/issues"
