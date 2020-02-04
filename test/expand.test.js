@@ -1,6 +1,6 @@
-import test from 'ava';
-import path from 'path';
-import fs from 'fs';
+const test = require('ava');
+const path = require('path');
+const fs = require('fs');
 
 const rimraf = require('rimraf');
 const { PNG } = require('pngjs');

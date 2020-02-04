@@ -1,8 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-import test from 'ava';
-import rimraf from 'rimraf';
-import { imgDiff } from '../';
+const fs = require('fs');
+const path = require('path');
+const test = require('ava');
+const rimraf = require('rimraf');
+const { imgDiff } = require('../');
 
 test('compare with 2 png files', async t => {
   const diffFilename = path.resolve(__dirname, 'images/diff_generated.png');

@@ -1,5 +1,5 @@
-import test from 'ava';
-import path from 'path';
+const test = require('ava');
+const path = require('path');
 
 const { decodeFile: decodeJpeg } = require('../lib/decode-jpeg');
 
