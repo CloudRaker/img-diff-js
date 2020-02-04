@@ -29,7 +29,7 @@ test('expand horizontal', async t => {
   t.is(dataList[1], img2.data);
   t.is(dataList[0].length, width * height * 4);
   const png = new PNG({ width, height });
-  png.data = new Buffer(dataList[0]);
+  png.data = Buffer.from(dataList[0]);
   fs.writeFileSync(path.resolve(__dirname, 'images/expand_horizontal_generated.png'), PNG.sync.write(png));
 });
 
@@ -43,6 +43,6 @@ test('expand vertical', async t => {
   t.is(dataList[1], img2.data);
   t.is(dataList[0].length, width * height * 4);
   const png = new PNG({ width, height });
-  png.data = new Buffer(dataList[0]);
+  png.data = Buffer.from(dataList[0]);
   fs.writeFileSync(path.resolve(__dirname, 'images/expand_vertical_generated.png'), PNG.sync.write(png));
 });
